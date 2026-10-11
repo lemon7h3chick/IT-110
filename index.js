@@ -12,6 +12,11 @@ buttons.addEventListener('click', (event) => {
     inputNumber(target);
   } else if (target.className === 'operator') {
     inputOperator(target);
+  } else {
+    switch (target.id) {
+      case 'equal':
+        calculate();
+    }
   }
 });
 
@@ -28,6 +33,13 @@ function inputNumber(target) {
 function inputOperator(target) {
   if (!result.textContent && !input.textContent) {
     return;
+  }
+
+  if (record.length) {
+    if (record.at(-1).type === 'equal') {
+      input.textContent = result.textContent;
+      result.textContent = '';
+    }
   }
 
   if (result.textContent) {
@@ -50,4 +62,32 @@ function inputOperator(target) {
 
   input.scrollLeft = input.scrollWidth;
   record.push(makeState(target.textContent, 'operator'));
+}
+
+function calculate() {
+  if (!input.textContent) {
+    return;
+  }
+
+  if (record.at(-1).type === 'equal') {
+    input.textContent = result.textContent;
+    return;
+  }
+
+  if (result.textContent) {
+    record.push(makeState(result.textContent, 'number'));
+    input.textContent += ' ' + result.textContent;
+  }
+
+  if (record.at(-1).type === 'operator') {
+    input.textContent = input.textContent.slice(0, -2);
+    record.pop();
+  }
+
+  result.textContent = eval(
+    input.textContent.replaceAll('×', '*').replaceAll('÷', '/'),
+  );
+
+  record.length = 0;
+  record.push(makeState(result.textContent, 'equal'));
 }
