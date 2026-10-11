@@ -47,8 +47,19 @@ body {
   border-bottom: 0.25px solid rgb(from var(--border-secondary) r g b / 15%);
 }
 
+.input,
+.result {
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(from var(--light-text) r g b / 25%) var(--bg-secondary);
+}
+
 .input {
-  height: 1rem;
+  height: 3rem;
+
+  color: rgb(from var(--light-text) r g b / 50%);
+  font-size: 2rem;
+  white-space: nowrap;
 }
 
 .result {
@@ -56,10 +67,6 @@ body {
 
   font-size: 4rem;
   text-align: end;
-
-  overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: rgb(from var(--light-text) r g b / 25%) var(--bg-secondary);
 }
 
 .buttons {
