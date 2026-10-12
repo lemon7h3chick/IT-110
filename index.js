@@ -47,7 +47,7 @@ function inputOperator(target) {
   }
 
   if (record.length) {
-    if (record.at(-1).type === 'equal') {
+    if (seekCurrentType() === 'equal') {
       input.textContent = result.textContent;
       result.textContent = '';
     }
@@ -64,7 +64,7 @@ function inputOperator(target) {
     result.textContent = '';
   }
 
-  if (record.at(-1).type === 'operator') {
+  if (seekCurrentType() === 'operator') {
     input.textContent = input.textContent.slice(0, -1) + target.textContent;
     record.pop();
   } else {
@@ -80,7 +80,7 @@ function calculate() {
     return;
   }
 
-  if (record.at(-1).type === 'equal') {
+  if (seekCurrentType() === 'equal') {
     input.textContent = result.textContent;
     return;
   }
@@ -90,7 +90,7 @@ function calculate() {
     input.textContent += ' ' + result.textContent;
   }
 
-  if (record.at(-1).type === 'operator') {
+  if (seekCurrentType() === 'operator') {
     input.textContent = input.textContent.slice(0, -2);
     record.pop();
   }
