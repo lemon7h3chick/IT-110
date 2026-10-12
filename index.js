@@ -16,12 +16,16 @@ buttons.addEventListener('click', (event) => {
     switch (target.id) {
       case 'equal':
         calculate();
+        break;
+      case 'decimal':
+        inputDecimal();
+        break;
     }
   }
 });
 
 function inputNumber(target) {
-  if (!+result.textContent) {
+  if (result.textContent === '0') {
     result.textContent = target.textContent;
   } else {
     result.textContent += target.textContent;
@@ -90,4 +94,16 @@ function calculate() {
 
   record.length = 0;
   record.push(makeState(result.textContent, 'equal'));
+}
+
+function inputDecimal() {
+  if (result.textContent.includes('.')) {
+    return;
+  }
+
+  if (!result.textContent) {
+    result.textContent = '0.';
+  } else {
+    result.textContent += '.';
+  }
 }
