@@ -29,6 +29,9 @@ buttons.addEventListener('click', (event) => {
       case 'negate':
         negate();
         break;
+      case 'percentage':
+        percentage();
+        break;
     }
   }
 });
@@ -171,6 +174,26 @@ function negate() {
   }
 
   result.textContent = -result.textContent;
+}
+
+function percentage() {
+  if (!input.textContent && !result.textContent) {
+    return;
+  }
+
+  if (seekCurrentType() === 'equal') {
+    input.textContent = '';
+  }
+
+  if (!result.textContent) {
+    if (seekCurrentType() === 'number') {
+      const value = record.pop().value;
+      result.textContent = value;
+      input.textContent = input.textContent.slice(0, -(value.length + 1));
+    }
+  }
+
+  result.textContent = +result.textContent * 0.01;
 }
 
 function seekCurrentType() {
