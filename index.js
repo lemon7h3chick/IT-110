@@ -20,6 +20,9 @@ buttons.addEventListener('click', (event) => {
       case 'decimal':
         inputDecimal();
         break;
+      case 'clear':
+        clear();
+        break;
     }
   }
 });
@@ -27,6 +30,10 @@ buttons.addEventListener('click', (event) => {
 function inputNumber(target) {
   if (result.textContent === '0') {
     result.textContent = target.textContent;
+  } else if (seekCurrentType() === 'number') {
+    const value = record.pop().value;
+    input.textContent = input.textContent.slice(0, -(value.length + 1));
+    result.textContent = value + target.textContent;
   } else {
     result.textContent += target.textContent;
   }
@@ -106,4 +113,39 @@ function inputDecimal() {
   } else {
     result.textContent += '.';
   }
+}
+
+function clear() {
+  if (!result.textContent && !input.textContent) {
+    return;
+  }
+
+  if (seekCurrentType() === 'equal') {
+    input.textContent = '';
+    result.textContent = result.textContent.slice(0, -1);
+    record.pop();
+    return;
+  }
+
+  if (result.textContent) {
+    result.textContent = result.textContent.slice(0, -1);
+    return;
+  }
+
+  if (seekCurrentType() === 'number') {
+    const value = record.pop().value;
+    input.textContent = input.textContent.slice(0, -(value.length + 1));
+    result.textContent = value.slice(0, -1);
+  } else if (seekCurrentType() === 'operator') {
+    input.textContent = input.textContent.slice(0, -2);
+    record.pop();
+  }
+}
+
+function seekCurrentType() {
+  if (!record.length) {
+    return '';
+  }
+
+  return record.at(-1).type;
 }
