@@ -23,6 +23,9 @@ buttons.addEventListener('click', (event) => {
       case 'clear':
         clear();
         break;
+      case 'all-clear':
+        allClear();
+        break;
     }
   }
 });
@@ -140,6 +143,11 @@ function clear() {
     input.textContent = input.textContent.slice(0, -2);
     record.pop();
   }
+}
+
+function allClear() {
+  record.length = 0;
+  input.textContent = result.textContent = '';
 }
 
 function seekCurrentType() {
