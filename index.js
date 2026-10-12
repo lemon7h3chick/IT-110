@@ -26,6 +26,9 @@ buttons.addEventListener('click', (event) => {
       case 'all-clear':
         allClear();
         break;
+      case 'negate':
+        negate();
+        break;
     }
   }
 });
@@ -148,6 +151,26 @@ function clear() {
 function allClear() {
   record.length = 0;
   input.textContent = result.textContent = '';
+}
+
+function negate() {
+  if (!input.textContent && !result.textContent) {
+    return;
+  }
+
+  if (seekCurrentType() === 'equal') {
+    input.textContent = '';
+  }
+
+  if (!result.textContent) {
+    if (seekCurrentType() === 'number') {
+      const value = record.pop().value;
+      result.textContent = value;
+      input.textContent = input.textContent.slice(0, -(value.length + 1));
+    }
+  }
+
+  result.textContent = -result.textContent;
 }
 
 function seekCurrentType() {
