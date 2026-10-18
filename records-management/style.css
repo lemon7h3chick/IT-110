@@ -119,3 +119,14 @@ thead th {
   font-weight: 600;
   white-space: nowrap;
 }
+
+.message td {
+  padding: 2rem 1rem;
+
+  text-align: center;
+  color: var(--muted);
+}
+
+.message.error td {
+  color: #9b1c1c;
+}
