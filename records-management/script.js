@@ -1,7 +1,10 @@
 let allStudents = [];
 
+const searchInput = document.getElementById('searchInput');
 const recordCount = document.getElementById('recordCount');
 const tableBody = document.getElementById('tableBody');
+
+searchInput.addEventListener('input', updateTable);
 
 loadStudents();
 
@@ -42,9 +45,23 @@ function showMessage(text, isError) {
 }
 
 function updateTable() {
-  const filtered = allStudents;
+  const filtered = getFilteredRecods();
 
   renderTable(filtered);
+}
+
+function getFilteredRecods() {
+  const query = searchInput.value.trim().toLowerCase();
+
+  return allStudents.filter((student) => {
+    const matchesSearch =
+      query === '' ||
+      student.first_name.toLowerCase().includes(query) ||
+      student.last_name.toLowerCase().includes(query) ||
+      student.program.toLowerCase().includes(query);
+
+    return matchesSearch;
+  });
 }
 
 function renderTable(records) {
