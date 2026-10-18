@@ -1,12 +1,14 @@
 let allStudents = [];
 
 const searchInput = document.getElementById('searchInput');
+const sortSelect = document.getElementById('sortSelect');
 const programFilter = document.getElementById('programFilter');
 const yearFilter = document.getElementById('yearFilter');
 const recordCount = document.getElementById('recordCount');
 const tableBody = document.getElementById('tableBody');
 
 searchInput.addEventListener('input', updateTable);
+sortSelect.addEventListener('change', updateTable);
 programFilter.addEventListener('change', updateTable);
 yearFilter.addEventListener('change', updateTable);
 
@@ -50,8 +52,9 @@ function showMessage(text, isError) {
 
 function updateTable() {
   const filtered = getFilteredRecods();
+  const sorted = getSortedRecords(filtered);
 
-  renderTable(filtered);
+  renderTable(sorted);
 }
 
 function getFilteredRecods() {
@@ -71,6 +74,36 @@ function getFilteredRecods() {
 
     return matchesSearch && matchesProgram && matchesYear;
   });
+}
+
+function getSortedRecords(records) {
+  const sorted = [...records];
+  console.log(sorted);
+  const byText = (a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' });
+
+  switch (sortSelect.value) {
+    case 'first-asc':
+      sorted.sort((a, b) => byText(a.first_name, b.first_name));
+      break;
+    case 'first-desc':
+      sorted.sort((a, b) => byText(b.first_name, a.first_name));
+      break;
+    case 'last-asc':
+      sorted.sort((a, b) => byText(a.last_name, b.last_name));
+      break;
+    case 'last-desc':
+      sorted.sort((a, b) => byText(b.last_name, a.last_name));
+      break;
+    case 'year-asc':
+      sorted.sort((a, b) => a.year_level - b.year_level);
+      break;
+    case 'year-desc':
+      sorted.sort((a, b) => b.year_level - a.year_level);
+      break;
+    default:
+      break;
+  }
+  return sorted;
 }
 
 function renderTable(records) {
