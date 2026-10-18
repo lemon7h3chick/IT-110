@@ -4,6 +4,7 @@ const searchInput = document.getElementById('searchInput');
 const sortSelect = document.getElementById('sortSelect');
 const programFilter = document.getElementById('programFilter');
 const yearFilter = document.getElementById('yearFilter');
+const resetBtn = document.getElementById('resetBtn');
 const recordCount = document.getElementById('recordCount');
 const tableBody = document.getElementById('tableBody');
 
@@ -11,6 +12,7 @@ searchInput.addEventListener('input', updateTable);
 sortSelect.addEventListener('change', updateTable);
 programFilter.addEventListener('change', updateTable);
 yearFilter.addEventListener('change', updateTable);
+resetBtn.addEventListener('click', resetControls);
 
 loadStudents();
 
@@ -133,4 +135,14 @@ function renderTable(records) {
     recordCount.textContent = `Showing ${records.length} of ${allStudents.length} student`;
     tableBody.appendChild(row);
   });
+}
+
+function resetControls() {
+  searchInput.value = '';
+  sortSelect.value = 'default';
+  programFilter.value = 'all';
+  yearFilter.value = 'all';
+
+  updateTable();
+  searchInput.focus();
 }
