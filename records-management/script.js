@@ -2,11 +2,13 @@ let allStudents = [];
 
 const searchInput = document.getElementById('searchInput');
 const programFilter = document.getElementById('programFilter');
+const yearFilter = document.getElementById('yearFilter');
 const recordCount = document.getElementById('recordCount');
 const tableBody = document.getElementById('tableBody');
 
 searchInput.addEventListener('input', updateTable);
 programFilter.addEventListener('change', updateTable);
+yearFilter.addEventListener('change', updateTable);
 
 loadStudents();
 
@@ -55,6 +57,7 @@ function updateTable() {
 function getFilteredRecods() {
   const query = searchInput.value.trim().toLowerCase();
   const program = programFilter.value;
+  const year = yearFilter.value;
 
   return allStudents.filter((student) => {
     const matchesSearch =
@@ -64,8 +67,9 @@ function getFilteredRecods() {
       student.program.toLowerCase().includes(query);
 
     const matchesProgram = program === 'all' || student.program === program;
+    const matchesYear = year === 'all' || student.year_level === Number(year);
 
-    return matchesSearch && matchesProgram;
+    return matchesSearch && matchesProgram && matchesYear;
   });
 }
 
