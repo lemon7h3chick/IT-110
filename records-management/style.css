@@ -120,6 +120,14 @@ thead th {
   white-space: nowrap;
 }
 
+tbody tr {
+  border-top: 1px solid var(--line);
+}
+
+tbody tr:hover {
+  background: var(--tint);
+}
+
 .message td {
   padding: 2rem 1rem;
 

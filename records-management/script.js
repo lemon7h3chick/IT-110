@@ -15,6 +15,7 @@ function loadStudents() {
     })
     .then((data) => {
       allStudents = data;
+      updateTable();
     })
     .catch((error) => {
       console.error('Could not load students_25.json: ' + error);
@@ -38,4 +39,39 @@ function showMessage(text, isError) {
 
   tableBody.innerHTML = '';
   tableBody.appendChild(row);
+}
+
+function updateTable() {
+  const filtered = allStudents;
+
+  renderTable(filtered);
+}
+
+function renderTable(records) {
+  tableBody.innerHTML = '';
+
+  if (!records.length) {
+    showMessage('No records found', false);
+    return;
+  }
+
+  records.forEach((student) => {
+    const row = document.createElement('tr');
+
+    [
+      student.first_name,
+      student.middle_initial,
+      student.last_name,
+      student.program,
+      student.year_level,
+    ].forEach((value) => {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+
+      row.appendChild(cell);
+    });
+
+    recordCount.textContent = `Showing ${records.length} of ${allStudents.length} student`;
+    tableBody.appendChild(row);
+  });
 }
