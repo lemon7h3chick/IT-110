@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Records Management</title>
+  </head>
+
+  <body>
+    <main class="page">
+      <h1>Records Management</h1>
+
+      <section class="controls">
+        <div class="field">
+          <label for="searchInput">Search</label>
+          <input type="search" , id="searchInput" , placeholder="First/Last Name, or Program" />
+        </div>
+
+        <div class="field">
+          <label for="sortSelect">Sort by</label>
+          <select id="sortSelect">
+            <option value="default">Default order</option>
+            <option value="first-asc">First Name: A-Z</option>
+            <option value="first-desc">First Name: Z-A</option>
+            <option value="last-asc">Last Name: A-Z</option>
+            <option value="last-desc">Last Name: Z-A</option>
+            <option value="year-asc">Year Level: Lowest to Highest</option>
+            <option value="year-desc">Year Level: Highest to Lowest</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="programFilter">Program</label>
+          <select id="programFilter">
+            <option value="all">All Programs</option>
+            <option value="BSIT">BSIT</option>
+            <option value="BSIS">BSIS</option>
+            <option value="BSCS">BSCS</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="yearFilter">Year level</label>
+          <select id="yearFilter">
+            <option value="all">All Year Levels</option>
+            <option value="1">Year 1</option>
+            <option value="2">Year 2</option>
+            <option value="3">Year 3</option>
+            <option value="4">Year 4</option>
+          </select>
+        </div>
+
+        <button type="button" id="resetBtn" class="reset">Reset</button>
+      </section>
+
+      <p id="recordCount" class="count" aria-live="polite"></p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">First Name</th>
+              <th scope="col">Middle Initial</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Program</th>
+              <th scope="col">Year Level</th>
+            </tr>
+          </thead>
+
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
